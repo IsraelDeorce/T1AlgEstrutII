@@ -10,19 +10,18 @@ import java.util.Scanner;
 public class App {
 	
 	private static GeneralTreeOfStrings arvore;
-	private static int tamanhoImagem;
-	private static String arquivo;
-	private static LinkedListOfStrings lista;
+	private static String codigo ="";
+	private static int tamanho;
 	
 	public static void main(String[] args) throws IOException{
 		
 		Scanner in = new Scanner(System.in);
 		
-		arvore = new GeneralTreeOfStrings();
-		lista = new LinkedListOfStrings();
+		arvore = new GeneralTreeOfStrings();		
 		
-		System.out.println("Informe o nome do Arquivo: ");
-		arquivo = in.nextLine();
+		//System.out.println("Informe o nome do Arquivo: ");
+		//String arquivo = in.nextLine();
+		String arquivo ="s.txt";
 				
 		/*================================================================================*/
 		System.out.print("Carregando arquivo " + arquivo + "... ");
@@ -33,31 +32,61 @@ public class App {
 			return;
 		}
 		
-		printaLista();
+		
+		
+		/*================================================================================*/
+		//transforma em número	
+		
+		tamanho();
+		
+		arvore.montaArvore(codigo, tamanho);
+		
+		//System.out.println(codigo.length());
+		
+		//printacodigo();
+		
+		LinkedListOfStrings a = arvore.positionsPre();
+		for(int i=0; i<a.size(); i++){
+			System.out.println(a.get(i));
+		}
+		
+		
+		
 		
 	}
 	
-	public static boolean lerArquivo(String inscricao) throws FileNotFoundException, IOException{
-		//String filePath = new File(inscricao).getAbsolutePath();
-		//System.out.println(filePath);
-		try(BufferedReader in = new BufferedReader(new FileReader("Files/t1arqs/"+inscricao))){ 				
+	
+	public static boolean lerArquivo(String arquivo) throws FileNotFoundException, IOException{		
+		try(BufferedReader in = new BufferedReader(new FileReader("Files/t1arqs/"+arquivo))){ 				
 			while(in.ready()) { 			
-				lista.add(in.readLine());				
+				codigo+=(in.readLine());				
 			}
 			return true;
 		}
 		
 	}
 	
-	public static void printaLista(){
-		if(lista.isEmpty())
+	public static void tamanho(){
+		String tamanho = "";
+		int j=1;
+		for(int i=0; !(codigo.substring(i,j).equals(" ")); i++, j++) {							
+			tamanho += codigo.substring(i, j);			
+		}		
+		codigo = codigo.substring(j);
+	}
+	
+	
+/*
+	public static void printacodigo(){
+		if(codigo.isEmpty())
 			return;		
-		for(int i = 0, j = 4; i<lista.get(0).length(); i+=4, j+=4){	
-			while(j>lista.get(0).length()){
+		for(int i = 0, j = 4; i<codigo.length(); i+=4, j+=4){	
+			while(j>codigo.length()){
 				j--;
 			}
-			System.out.println(lista.get(0).substring(i, j));			
+			System.out.println(codigo.substring(i, j));			
 		}
-	}	
-
+	}
+*/
+	
 }

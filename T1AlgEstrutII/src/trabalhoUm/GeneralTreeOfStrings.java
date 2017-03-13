@@ -231,6 +231,42 @@ public class GeneralTreeOfStrings {
 		return lista;
 	}
 	
+	public boolean montaArvore(String codigo, int tamanho){
+		if(codigo.isEmpty()) return false;			
+		int total = tamanho*tamanho;			
+		Node pai = new Node(codigo.substring(0,1));	
+		Node filho = new Node("");
+		//codigo.substring(1,2)
+		this.root = pai;
+		count++;					
+		montaArvoreAux(codigo,2,3,pai, filho,total);			
+		return true;
+	}
+	
+	public boolean montaArvoreAux(String codigo, int i, int j, Node pai, Node filho,int total){
+		if(total>0){
+			if(codigo.substring(i,j).equals("c")){
+				Node c = new Node(codigo.substring(i,j));
+				pai.addSubtree(c);				
+				montaArvoreAux(codigo, i++, j++, c,new Node(codigo.substring(i,j)),total-1);							
+			}
+			
+			else if(codigo.substring(i,j).equals("b")){
+				pai.addSubtree(new Node(codigo.substring(i,j)));	
+			}
+			else if(codigo.substring(i,j).equals("p")){
+				pai.addSubtree(new Node(codigo.substring(i,j)));
+			}
+			else {
+				return false;	
+			}
+		}
+		return true;
+	}	
+	
+	
+/*
+	 
 	public boolean montaArvore(LinkedListOfStrings livro){
 		if(livro.isEmpty()) return false;
 		if(livro.size()==1){
@@ -275,8 +311,10 @@ public class GeneralTreeOfStrings {
 			pai.addSubtree(filho);		
 			if(pos>=livro.size()) return;
 			montaArvoreAux(filho.father,new Node(livro.get(pos)),pos+1, livro);
-		}				
+		}					
 	}
+	
+*/
 	
 	public LinkedListOfStrings positions(){
 		LinkedListOfStrings lista = new LinkedListOfStrings();
