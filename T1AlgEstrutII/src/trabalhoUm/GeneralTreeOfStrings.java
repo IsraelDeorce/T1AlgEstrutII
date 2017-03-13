@@ -237,26 +237,30 @@ public class GeneralTreeOfStrings {
 		Node pai = new Node(codigo.substring(0,1));	
 		Node filho = new Node("");
 		//codigo.substring(1,2)
-		this.root = pai;
+		this.root = pai;		
 		count++;					
-		montaArvoreAux(codigo,2,3,pai, filho,total);			
+		montaArvoreAux(codigo,1,2,pai, filho);			
 		return true;
 	}
 	
-	public boolean montaArvoreAux(String codigo, int i, int j, Node pai, Node filho,int total){
-		if(total>0){
-			if(codigo.substring(i,j).equals("c")){
-				Node c = new Node(codigo.substring(i,j));
-				pai.addSubtree(c);				
-				montaArvoreAux(codigo, i++, j++, c,new Node(codigo.substring(i,j)),total-1);							
+	public boolean montaArvoreAux(String codigo, int i, int j, Node pai, Node filho){
+		if(true){
+			if(codigo.substring(i,j).equals("c") && pai.getSubtreeSize()<4){
+				filho = new Node(codigo.substring(i,j));
+				pai.addSubtree(filho);
+				montaArvoreAux(codigo, i++, j++, filho,new Node(codigo.substring(i,j)));							
 			}
 			
-			else if(codigo.substring(i,j).equals("b")){
-				pai.addSubtree(new Node(codigo.substring(i,j)));	
+			else if(codigo.substring(i,j).equals("b") && pai.getSubtreeSize()<4){
+				pai.addSubtree(new Node(codigo.substring(i,j)));				
+				montaArvoreAux(codigo, i++,j++, filho.father,new Node(codigo.substring(i,j)));
 			}
-			else if(codigo.substring(i,j).equals("p")){
+			
+			else if(codigo.substring(i,j).equals("p") && pai.getSubtreeSize()<4){
 				pai.addSubtree(new Node(codigo.substring(i,j)));
+				montaArvoreAux(codigo, i++, j++, filho.father,new Node(codigo.substring(i,j)));
 			}
+			
 			else {
 				return false;	
 			}
