@@ -244,39 +244,44 @@ public class GeneralTreeOfStrings {
 		count++;		
 		i = 1;
 		j = 2;
+		//System.out.println(root.element);
+		//System.out.println(codigo);		
 		montaArvoreAux(codigo,pai, filho);			
 		return true;
 	}
 	
 	public boolean montaArvoreAux(String codigo, Node pai, Node filho){		
-		if(true){
-			if(codigo.substring(i,j).equals("c")){
-				filho = new Node(codigo.substring(i,j));
-				pai.addSubtree(filho);
+		while(j <= codigo.length()){		
+			if(codigo.substring(i,j).equals("c")&&pai.getSubtreeSize()<4){				
+				filho.element = codigo.substring(i,j);				
+				pai.addSubtree(filho);		
+				i++;
+				j++;				
+				montaArvoreAux(codigo, filho,new Node(""));							
+			} 
+			
+			else if(codigo.substring(i,j).equals("b")&&pai.getSubtreeSize()<4){					
+				filho.element = codigo.substring(i,j);	
+				pai.addSubtree(filho);					
+				i++;
+				j++;			
+				montaArvoreAux(codigo, filho.father,new Node(""));
+			} 
+			
+			else if(codigo.substring(i,j).equals("p")&&pai.getSubtreeSize()<4){					
+				filho.element = codigo.substring(i,j);	
+				pai.addSubtree(filho);	
 				i++;
 				j++;
-				montaArvoreAux(codigo, filho,new Node(codigo.substring(i,j)));							
+				montaArvoreAux(codigo, filho.father,new Node(""));
 			}
-			
-			else if(codigo.substring(i,j).equals("b")){
-				pai.addSubtree(new Node(codigo.substring(i,j)));				
-				i++;
-				j++;
-				montaArvoreAux(codigo, filho.father,new Node(codigo.substring(i,j)));
-			}
-			
-			else if(codigo.substring(i,j).equals("p")){
-				pai.addSubtree(new Node(codigo.substring(i,j)));
-				i++;
-				j++;
-				montaArvoreAux(codigo, filho.father,new Node(codigo.substring(i,j)));
-			}
-			
 			else {
-				return false;	
+				montaArvoreAux(codigo, pai.father,filho);
 			}
 		}
-		return true;
+			return true;		
+		
+		
 	}		
 	
 /*	 
