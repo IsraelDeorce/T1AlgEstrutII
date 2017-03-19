@@ -238,52 +238,50 @@ public class GeneralTreeOfStrings {
 		if(codigo.isEmpty()) return false;			
 		int total = tamanho*tamanho;			
 		Node pai = new Node(codigo.substring(0,1));	
-		Node filho = new Node("");
+		Node filho = new Node(codigo.substring(1,2));
 		//codigo.substring(1,2)
 		this.root = pai;		
 		count++;		
 		i = 1;
 		j = 2;
-		//System.out.println(root.element);
 		//System.out.println(codigo);		
 		montaArvoreAux(codigo,pai, filho);			
 		return true;
-	}
+	}	
 	
-	public boolean montaArvoreAux(String codigo, Node pai, Node filho){		
-		while(j <= codigo.length()){		
-			if(codigo.substring(i,j).equals("c")&&pai.getSubtreeSize()<4){				
-				filho.element = codigo.substring(i,j);				
-				pai.addSubtree(filho);		
-				i++;
-				j++;				
-				montaArvoreAux(codigo, filho,new Node(""));							
-			} 
-			
-			else if(codigo.substring(i,j).equals("b")&&pai.getSubtreeSize()<4){					
-				filho.element = codigo.substring(i,j);	
-				pai.addSubtree(filho);					
-				i++;
-				j++;			
-				montaArvoreAux(codigo, filho.father,new Node(""));
-			} 
-			
-			else if(codigo.substring(i,j).equals("p")&&pai.getSubtreeSize()<4){					
-				filho.element = codigo.substring(i,j);	
-				pai.addSubtree(filho);	
+	public void montaArvoreAux(String codigo, Node pai, Node filho){		
+		if(filho.element.equals("c")){
+			pai.addSubtree(filho);
+			while(filho.getSubtreeSize()<4){
 				i++;
 				j++;
-				montaArvoreAux(codigo, filho.father,new Node(""));
-			}
-			else {
-				montaArvoreAux(codigo, pai.father,filho);
-			}
+				montaArvoreAux(codigo,filho,new Node(codigo.substring(i, j)));
+			}			
 		}
-			return true;		
 		
-		
-	}		
+		else if(filho.element.equals("b")){
+			pai.addSubtree(filho);
+		}
+		else if(filho.element.equals("p")){
+			pai.addSubtree(filho);
+		}
+		if(pai.getSubtreeSize()<4){
+			i++;
+			j++;
+			montaArvoreAux(codigo,pai,new Node(codigo.substring(i, j)));
+		}				
+	}	
 	
+	
+	public String writing(){
+		String s = "";
+		return writingAux(s);	
+	}
+	public String writingAux(String s){
+		
+		return s;
+	}
+
 /*	 
 	public boolean montaArvore(LinkedListOfStrings livro){
 		if(livro.isEmpty()) return false;
@@ -348,8 +346,7 @@ public class GeneralTreeOfStrings {
 			}
 		}
 		return lista;
-	}
-	
+	}	
 	
 
 	@Override
