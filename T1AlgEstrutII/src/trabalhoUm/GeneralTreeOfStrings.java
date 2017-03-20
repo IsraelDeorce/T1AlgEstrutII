@@ -14,6 +14,7 @@ public class GeneralTreeOfStrings {
 	
 	private int i;
 	private int j;
+	private String str="";
 	
 	protected static final class Node{
 		
@@ -270,66 +271,35 @@ public class GeneralTreeOfStrings {
 			j++;
 			montaArvoreAux(codigo,pai,new Node(codigo.substring(i, j)));
 		}				
-	}	
-	
-	
-	public String writing(){
-		String s = "";
-		return writingAux(s);	
 	}
-	public String writingAux(String s){
-		
-		return s;
+	
+	public String writing(int tamanho){	
+		int x = 0;
+		int y = 0;			
+		writingAux(root, tamanho, x, y);		
+		return str;
 	}
-
-/*	 
-	public boolean montaArvore(LinkedListOfStrings livro){
-		if(livro.isEmpty()) return false;
-		if(livro.size()==1){
-			this.root = new Node(livro.get(0));
-			return true;
+	
+	public void writingAux(Node n, int tamanho, int x, int y){			
+		if(n.element.equals("c")){	
+			str += "\n";
+			writingAux(n.getSubtree(0),tamanho/2, x+(tamanho/2),y);
+			str += "\n";
+			writingAux(n.getSubtree(1),tamanho/2, x, y);
+			str += "\n";
+			writingAux(n.getSubtree(2),tamanho/2, x, y+(tamanho/2));
+			str += "\n";
+			writingAux(n.getSubtree(3),tamanho/2, x+(tamanho/2),y+(tamanho/2));
+			str += "\n";			
+		}			
+		else if(n.element.equals("b")){
+			str += "<rect x='"+x+"' y='"+y+"' width='"+tamanho+"' height='"+tamanho+"' style='fill:white'/>";			
 		}
-		else{		
-			Node pai = new Node(livro.get(0));
-			Node filho = new Node(livro.get(1));
-			this.root = pai;	
-			if(pai.element.substring(0, 2).equals("L ")){			
-				montaArvoreAux(pai,filho,2,livro);				
-			}
-			return true;
-		}		
-	}
-	
-	private void montaArvoreAux(Node pai, Node filho, int pos, LinkedListOfStrings livro){		
-		
-		
-		if(filho.element.substring(0, 2).equals("C ")){			
-			this.root.addSubtree(filho);
-			montaArvoreAux(filho,new Node(livro.get(pos)),pos+1, livro);
-		}		
-		if(filho.element.substring(0, 2).equals("S ")){
-			while(!(pai.element.substring(0, 2).equals("C ")))				
-				pai  = pai.father;
-			pai.addSubtree(filho);			
-			montaArvoreAux(filho,new Node(livro.get(pos)),pos+1, livro);
-		}		
-
-		if(filho.element.substring(0, 2).equals("SS")){			
-			while(!(pai.element.substring(0, 2).equals("S ")))				
-				pai  = pai.father;
-			pai.addSubtree(filho);
-			montaArvoreAux(filho,new Node(livro.get(pos)),pos+1, livro);
+		else if(n.element.equals("p")){
+			str += "<rect x='"+x+"' y='"+y+"' width='"+tamanho+"' height='"+tamanho+"' style='fill:black'/>";		
+		}	
 			
-		}		
-		if(filho.element.substring(0, 2).equals("P ")){
-			while(pai.element.substring(0, 2).equals("P "))					
-				pai  = pai.father;
-			pai.addSubtree(filho);		
-			if(pos>=livro.size()) return;
-			montaArvoreAux(filho.father,new Node(livro.get(pos)),pos+1, livro);
-		}					
-	}	
-*/
+	}
 	
 	public LinkedListOfStrings positions(){
 		LinkedListOfStrings lista = new LinkedListOfStrings();
@@ -346,8 +316,7 @@ public class GeneralTreeOfStrings {
 			}
 		}
 		return lista;
-	}	
-	
+	}		
 
 	@Override
 	public String toString() {
