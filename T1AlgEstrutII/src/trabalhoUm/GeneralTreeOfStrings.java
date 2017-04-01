@@ -11,12 +11,12 @@ public class GeneralTreeOfStrings {
 	
 	private Node root;
 	private int count;	
+	private int countPretas = 0;
 	
 	private int i;
 	private int j;
-	private String str="";
 	
-	protected static final class Node{
+	static final class Node{
 		
 		public Node father;
 		public String element;
@@ -235,17 +235,14 @@ public class GeneralTreeOfStrings {
 		return lista;
 	}
 	
-	public boolean montaArvore(String codigo, int tamanho){		
-		if(codigo.isEmpty()) return false;			
-		int total = tamanho*tamanho;			
+	public boolean montaArvore(String codigo){		
+		if(codigo.isEmpty()) return false;					
 		Node pai = new Node(codigo.substring(0,1));	
 		Node filho = new Node(codigo.substring(1,2));
-		//codigo.substring(1,2)
 		this.root = pai;		
 		count++;		
 		i = 1;
-		j = 2;
-		//System.out.println(codigo);		
+		j = 2;		
 		montaArvoreAux(codigo,pai, filho);			
 		return true;
 	}	
@@ -273,33 +270,38 @@ public class GeneralTreeOfStrings {
 		}				
 	}
 	
-	public String writing(int tamanho){	
+	public StringBuilder writing(int tamanho, StringBuilder str){	
 		int x = 0;
 		int y = 0;			
-		writingAux(root, tamanho, x, y);		
+		writingAux(root, tamanho, x, y, str);		
 		return str;
 	}
 	
-	public void writingAux(Node n, int tamanho, int x, int y){			
-		if(n.element.equals("c")){	
-			str += "\n";
-			writingAux(n.getSubtree(0),tamanho/2, x+(tamanho/2),y);
-			str += "\n";
-			writingAux(n.getSubtree(1),tamanho/2, x, y);
-			str += "\n";
-			writingAux(n.getSubtree(2),tamanho/2, x, y+(tamanho/2));
-			str += "\n";
-			writingAux(n.getSubtree(3),tamanho/2, x+(tamanho/2),y+(tamanho/2));
-			str += "\n";			
+	public void writingAux(Node n, int tamanho, int x, int y, StringBuilder str){			
+		if(n.element.equals("c")){			
+			str.append("\n");
+			writingAux(n.getSubtree(0),tamanho/2, x+(tamanho/2),y, str);		
+			str.append("\n");
+			writingAux(n.getSubtree(1),tamanho/2, x, y, str);		
+			str.append("\n");
+			writingAux(n.getSubtree(2),tamanho/2, x, y+(tamanho/2), str);
+			str.append("\n");
+			writingAux(n.getSubtree(3),tamanho/2, x+(tamanho/2),y+(tamanho/2), str);		
+			str.append("\n");
 		}			
 		else if(n.element.equals("b")){
-			str += "<rect x='"+x+"' y='"+y+"' width='"+tamanho+"' height='"+tamanho+"' style='fill:white'/>";			
+			str.append("<rect x='"+x+"' y='"+y+"' width='"+tamanho+"' height='"+tamanho+"' style='fill:white'/>");
 		}
 		else if(n.element.equals("p")){
-			str += "<rect x='"+x+"' y='"+y+"' width='"+tamanho+"' height='"+tamanho+"' style='fill:black'/>";		
-		}	
-			
+			str.append("<rect x='"+x+"' y='"+y+"' width='"+tamanho+"' height='"+tamanho+"' style='fill:black'/>");			
+			countPretas = countPretas + tamanho*tamanho;
+		}				
 	}
+	
+	public int getCountPretas(){
+		return countPretas;
+	}
+		
 	
 	public LinkedListOfStrings positions(){
 		LinkedListOfStrings lista = new LinkedListOfStrings();

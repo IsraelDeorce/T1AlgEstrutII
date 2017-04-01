@@ -19,12 +19,11 @@ public class App {
 	private static int tamanho;
 	private static String arquivo;
 	
-	public static void main(String[] args) throws IOException{
-		
-		Scanner in = new Scanner(System.in);		
+	public static void main(String[] args) throws IOException{		
+			
 		arvore = new GeneralTreeOfStrings();	
 		
-		arquivo ="t2z";	
+		arquivo ="t2d";	
 				
 		/*================================================================================*/
 		System.out.print("Carregando arquivo " + arquivo + "... ");
@@ -35,11 +34,10 @@ public class App {
 			return;
 		}		
 		/*================================================================================*/
-				
-		tamanho();		
-		arvore.montaArvore(codigo, tamanho);
-		fazDocumento();
-		
+		pegaTamanho();		
+		arvore.montaArvore(codigo);
+		fazDocumento();	
+		System.out.println("POSSUI:"+arvore.getCountPretas()+" pretas");
 	}	
 	
 	public static boolean lerArquivo(String arquivo) throws FileNotFoundException, IOException{		
@@ -48,11 +46,10 @@ public class App {
 				codigo+=(in.readLine());				
 			}
 			return true;
-		}
-		
-	}
+		}		
+	}	
 	
-	public static void tamanho(){
+	public static void pegaTamanho(){
 		String aux = "";
 		int j=1;
 		for(int i=0; !(codigo.substring(i,j).equals(" ")); i++, j++) {							
@@ -70,12 +67,9 @@ public class App {
 		}		
 	}
 	
-	public static int tamanhoArvore(){
-		LinkedListOfStrings a = arvore.positionsPre();
-		return a.size();
-	}
-	
 	public static void fazDocumento() throws UnsupportedEncodingException, FileNotFoundException, IOException{
+		StringBuilder str = new StringBuilder();
+		arvore.writing(tamanho, str);
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(				
 			       new FileOutputStream(arquivo+".svg"), "utf-8"))) {
 						writer.write("<?xml version='1.0' standalone='no'?>\n\n"
@@ -83,9 +77,14 @@ public class App {
 								+tamanho+" "+tamanho+"'> \n"
 								+ "<g style='stroke-width:.05; stroke:black'>\n");											
 						
-							writer.write(arvore.writing(tamanho));			
+							writer.write(str.toString());			
 							
 							writer.write("</g>\n</svg>");					
 		}
-	}	
+	}
+	
+	public static int tamanhoArvore(){
+		LinkedListOfStrings a = arvore.positionsPre();
+		return a.size();
+	}
 }
