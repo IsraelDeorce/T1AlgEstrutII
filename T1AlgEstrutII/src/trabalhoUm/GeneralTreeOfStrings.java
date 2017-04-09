@@ -34,13 +34,13 @@ public class GeneralTreeOfStrings {
 			subtrees.add(n);					
 		}		
 		
-		public boolean removeSubtree(Node n){
-			n.father = null;
-			return subtrees.remove(n);
-		}
-		
+//		public boolean removeSubtree(Node n){
+//			n.father = null;
+//			return subtrees.remove(n);
+//		}
+		//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 		public Node getSubtree(int i) {
-			if(i<0 || i>=subtrees.size())				
+			if(i<0 || i>=4)				
 				throw new RuntimeException("Index inválido");
 			return subtrees.get(i);				
 		}
@@ -48,10 +48,10 @@ public class GeneralTreeOfStrings {
 		public int getSubtreeSize(){
 			return subtrees.size();
 		}
-		@Override
-		public String toString() {
-			return "Node [father=" + father + ", element=" + element + ", subtrees=" + subtrees + "]";
-		}	
+//		@Override
+//		public String toString() {
+//			return "Node [father=" + father + ", element=" + element + ", subtrees=" + subtrees + "]";
+//		}	
 	}
 	
 	public GeneralTreeOfStrings(){
@@ -64,176 +64,176 @@ public class GeneralTreeOfStrings {
 	}
 	
 	//Retorna referencia de um nodo que possua determinado elemento a partir de uma arvore/subarvore
-	private Node searchNodeRef(String element, Node target){
-		Node n = null;
-		if(target != null){
-			if(element.equals(target.element))
-				n = target;
-			else{
-				int i=0;
-				Node aux = null;
-				while(aux==null && i<target.getSubtreeSize()){
-					aux = searchNodeRef(element, target.getSubtree(i));
-					i++;
-				}
-				n=aux;
-			}
-		}
-		return n;	
-	}
-	
-	// insere o elemento e como	filho de father
-	public boolean add(String element, String father){
-		Node n = new Node(element);
-		if(father==null){//se for nulo, é para adicionar na raiz
-			if(root!=null){	
-				root.father = n;
-				n.addSubtree(root);
-			}
-			root = n;			
-		}
-		//se father não é nulo, é para adicionar como subtree dele
-		else{
-			Node aux = searchNodeRef(father, root);
-			if(aux==null)
-				return false;
-			aux.addSubtree(n);
-			n.father = aux;		
-		}
-		count++;
-		return true;		
-	}
-	
-	// retorna o elemento armazenado na raiz
-	public String getRoot(){
-		if(root==null)
-			throw new RuntimeException("Raíz nula");			
-		return root.element;
-	}
-	
-	//altera o elemento armazenado na raiz
-	public void setRoot(String e){
-		if(root==null)
-			add(e, null);
-		root.element = e;						
-	}
-	
-	//retorna o pai do elemento e
-	public String getParent(String e){
-		Node n = searchNodeRef(e, root);
-		if(n==null)
-			throw new RuntimeException("Elemento não encontrado!");
-		return n.father.element;
-	}
-	
-	// remove o elemento e e seus filhos
-	public boolean removeBranch(String e){
-		Node n = searchNodeRef(e, root);	
-		if(n==null)
-			 return false;
-		count = count - n.getSubtreeSize();
-		Node father = n.father;
-		father.removeSubtree(n);
-		return true;
-	}
-	
-	//retorna true se a árvore contém o	elemento
-	public boolean contains(String e){
-		if(searchNodeRef(e,root)!=null)
-			return true;
-		return false;
-	}
-	
-	// retorna true se o elemento está armazenado em um nodo interno
-	public boolean isInternal(String e){
-		Node n = searchNodeRef(e, root);
-		if(n!=null){
-			return n.getSubtreeSize()>0;
-		}
-		return false;
-	}
-	
-	// retorna true se o elemento está armazenado em um nodo externo
-	public boolean isExternal(String e){
-		Node n = searchNodeRef(e, root);
-		if(n!=null){
-			return n.getSubtreeSize()==0;
-		}
-		return false;
-	}
-	
-	//retorna true se o elemento e está	armazenado na raiz
-	public boolean isRoot(String e){
-		if(e!=null){
-			return root.element == e;
-		}
-		return false;
-	}
-	
-	//retorna true se a árvore está vazia
-	public boolean isEmpty(){
-		return count==0;
-	}
-	
-	//retorna o número de elementos armazenados na árvore
-	public int size(){
-		return count;
-	}
-	
-	//remove todos os elementos da árvore
-	public void clear(){
-		root = null;
-		count = 0;
-	}
+//	private Node searchNodeRef(String element, Node target){
+//		Node n = null;
+//		if(target != null){
+//			if(element.equals(target.element))
+//				n = target;
+//			else{
+//				int i=0;
+//				Node aux = null;
+//				while(aux==null && i<target.getSubtreeSize()){
+//					aux = searchNodeRef(element, target.getSubtree(i));
+//					i++;
+//				}
+//				n=aux;
+//			}
+//		}
+//		return n;	
+//	}
+//	
+//	// insere o elemento e como	filho de father
+//	public boolean add(String element, String father){
+//		Node n = new Node(element);
+//		if(father==null){//se for nulo, é para adicionar na raiz
+//			if(root!=null){	
+//				root.father = n;
+//				n.addSubtree(root);
+//			}
+//			root = n;			
+//		}
+//		//se father não é nulo, é para adicionar como subtree dele
+//		else{
+//			Node aux = searchNodeRef(father, root);
+//			if(aux==null)
+//				return false;
+//			aux.addSubtree(n);
+//			n.father = aux;		
+//		}
+//		count++;
+//		return true;		
+//	}
+//	
+//	// retorna o elemento armazenado na raiz
+//	public String getRoot(){
+//		if(root==null)
+//			throw new RuntimeException("Raíz nula");			
+//		return root.element;
+//	}
+//	
+//	//altera o elemento armazenado na raiz
+//	public void setRoot(String e){
+//		if(root==null)
+//			add(e, null);
+//		root.element = e;						
+//	}
+//	
+//	//retorna o pai do elemento e
+//	public String getParent(String e){
+//		Node n = searchNodeRef(e, root);
+//		if(n==null)
+//			throw new RuntimeException("Elemento não encontrado!");
+//		return n.father.element;
+//	}
+//	
+//	// remove o elemento e e seus filhos
+//	public boolean removeBranch(String e){
+//		Node n = searchNodeRef(e, root);	
+//		if(n==null)
+//			 return false;
+//		count = count - n.getSubtreeSize();
+//		Node father = n.father;
+//		father.removeSubtree(n);
+//		return true;
+//	}
+//	
+//	//retorna true se a árvore contém o	elemento
+//	public boolean contains(String e){
+//		if(searchNodeRef(e,root)!=null)
+//			return true;
+//		return false;
+//	}
+//	
+//	// retorna true se o elemento está armazenado em um nodo interno
+//	public boolean isInternal(String e){
+//		Node n = searchNodeRef(e, root);
+//		if(n!=null){
+//			return n.getSubtreeSize()>0;
+//		}
+//		return false;
+//	}
+//	
+//	// retorna true se o elemento está armazenado em um nodo externo
+//	public boolean isExternal(String e){
+//		Node n = searchNodeRef(e, root);
+//		if(n!=null){
+//			return n.getSubtreeSize()==0;
+//		}
+//		return false;
+//	}
+//	
+//	//retorna true se o elemento e está	armazenado na raiz
+//	public boolean isRoot(String e){
+//		if(e!=null){
+//			return root.element == e;
+//		}
+//		return false;
+//	}
+//	
+//	//retorna true se a árvore está vazia
+//	public boolean isEmpty(){
+//		return count==0;
+//	}
+//	
+//	//retorna o número de elementos armazenados na árvore
+//	public int size(){
+//		return count;
+//	}
+//	
+//	//remove todos os elementos da árvore
+//	public void clear(){
+//		root = null;
+//		count = 0;
+//	}
 	
 	//retorna uma lista com todos os elementos da árvore na ordem pré-fixada
-	public LinkedListOfStrings positionsPre(){
-		LinkedListOfStrings lista = new LinkedListOfStrings();
-		positionsPreAux(root, lista);
-		return lista;		
-	}
-	
-	public void positionsPreAux(Node n, LinkedListOfStrings lista){
-		if(n!=null){
-			lista.add(n.element);			
-			for(int i=0; i<n.getSubtreeSize();i++){				
-				positionsPreAux(n.getSubtree(i),lista);
-			}			
-		}
-	}
+//	public LinkedListOfStrings positionsPre(){
+//		LinkedListOfStrings lista = new LinkedListOfStrings();
+//		positionsPreAux(root, lista);
+//		return lista;		
+//	}
+//	
+//	public void positionsPreAux(Node n, LinkedListOfStrings lista){
+//		if(n!=null){
+//			lista.add(n.element);			
+//			for(int i=0; i<n.getSubtreeSize();i++){				
+//				positionsPreAux(n.getSubtree(i),lista);
+//			}			
+//		}
+//	}
 	
 	//retorna uma lista com todos os elementos da árvore na ordem pos-fixada
-	public LinkedListOfStrings positionsPos(){
-		LinkedListOfStrings lista = new LinkedListOfStrings();
-		positionsPosAux(root, lista);
-		return lista;		
-	}
-	
-	public void positionsPosAux(Node n, LinkedListOfStrings lista){
-		if(n!=null){			
-			for(int i=0; i<n.getSubtreeSize();i++){
-				positionsPosAux(n.getSubtree(i),lista);
-			}
-			lista.add(n.element);
-		}
-	}
+//	public LinkedListOfStrings positionsPos(){
+//		LinkedListOfStrings lista = new LinkedListOfStrings();
+//		positionsPosAux(root, lista);
+//		return lista;		
+//	}
+//	
+//	public void positionsPosAux(Node n, LinkedListOfStrings lista){
+//		if(n!=null){			
+//			for(int i=0; i<n.getSubtreeSize();i++){
+//				positionsPosAux(n.getSubtree(i),lista);
+//			}
+//			lista.add(n.element);
+//		}
+//	}
 	
 	// retorna uma lista com todos os elementos da árvore com um caminhamento em largura
-	public LinkedListOfStrings positionsWidth(){
-		LinkedListOfStrings lista = new LinkedListOfStrings();
-		if(root!=null){
-			LinkedQueueOfNodes fila = new LinkedQueueOfNodes();
-			Node aux = root;
-			fila.enqueue(aux);
-			while(!fila.isEmpty()){
-				aux=fila.dequeue();
-				lista.add(aux.element);
-				for(int i=0; i<aux.getSubtreeSize(); i++)
-					fila.enqueue(aux.getSubtree(i));
-			}
-		}
-		return lista;
-	}
+//	public LinkedListOfStrings positionsWidth(){
+//		LinkedListOfStrings lista = new LinkedListOfStrings();
+//		if(root!=null){
+//			LinkedQueueOfNodes fila = new LinkedQueueOfNodes();
+//			Node aux = root;
+//			fila.enqueue(aux);
+//			while(!fila.isEmpty()){
+//				aux=fila.dequeue();
+//				lista.add(aux.element);
+//				for(int i=0; i<aux.getSubtreeSize(); i++)
+//					fila.enqueue(aux.getSubtree(i));
+//			}
+//		}
+//		return lista;
+//	}
 	
 	public boolean montaArvore(String codigo){		
 		if(codigo.isEmpty()) return false;					
@@ -303,22 +303,22 @@ public class GeneralTreeOfStrings {
 	}
 		
 	
-	public LinkedListOfStrings positions(){
-		LinkedListOfStrings lista = new LinkedListOfStrings();
-		if(root != null){
-			LinkedQueueOfNodes fila = new LinkedQueueOfNodes();
-			Node aux = root;
-			fila.enqueue(aux);
-			while(!fila.isEmpty()) {
-				aux = fila.dequeue();
-				lista.add(aux.element);
-				for(int i=0; i<aux.getSubtreeSize(); i++){
-					fila.enqueue(aux.getSubtree(i));
-				}
-			}
-		}
-		return lista;
-	}		
+//	public LinkedListOfStrings positions(){
+//		LinkedListOfStrings lista = new LinkedListOfStrings();
+//		if(root != null){
+//			LinkedQueueOfNodes fila = new LinkedQueueOfNodes();
+//			Node aux = root;
+//			fila.enqueue(aux);
+//			while(!fila.isEmpty()) {
+//				aux = fila.dequeue();
+//				lista.add(aux.element);
+//				for(int i=0; i<aux.getSubtreeSize(); i++){
+//					fila.enqueue(aux.getSubtree(i));
+//				}
+//			}
+//		}
+//		return lista;
+//	}		
 
 	@Override
 	public String toString() {

@@ -34,7 +34,7 @@ public class App {
 			return;
 		}		
 		/*================================================================================*/
-		pegaTamanho();		
+		processaDados();		
 		arvore.montaArvore(codigo);
 		fazDocumento();	
 		System.out.println("POSSUI:"+arvore.getCountPretas()+" pretas");
@@ -49,7 +49,7 @@ public class App {
 		}		
 	}	
 	
-	public static void pegaTamanho(){
+	public static void processaDados(){
 		String aux = "";
 		int j=1;
 		for(int i=0; !(codigo.substring(i,j).equals(" ")); i++, j++) {							
@@ -60,12 +60,12 @@ public class App {
 		tamanho = Integer.parseInt(aux);		
 	}
 	
-	public static void printaArvore(){		
-		LinkedListOfStrings a = arvore.positionsPre();
-		for(int i=0; i<a.size(); i++){
-			System.out.println(a.get(i));
-		}		
-	}
+//	public static void printaArvore(){		
+//		LinkedListOfStrings a = arvore.positionsPre();
+//		for(int i=0; i<a.size(); i++){
+//			System.out.println(a.get(i));
+//		}		
+//	}
 	
 	public static void fazDocumento() throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		StringBuilder str = new StringBuilder();
@@ -83,8 +83,8 @@ public class App {
 		}
 	}
 	
-	public static int tamanhoArvore(){
-		LinkedListOfStrings a = arvore.positionsPre();
-		return a.size();
-	}
+//	public static int tamanhoArvore(){
+//		LinkedListOfStrings a = arvore.positionsPre();
+//		return a.size();
+//	}
 }
