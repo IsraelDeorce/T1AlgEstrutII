@@ -23,7 +23,7 @@ public class App {
 			
 		arvore = new GeneralTreeOfStrings();	
 		
-		arquivo ="t2d";	
+		arquivo ="taaa";	
 				
 		/*================================================================================*/
 		System.out.print("Carregando arquivo " + arquivo + "... ");
@@ -44,9 +44,11 @@ public class App {
 		try(BufferedReader in = new BufferedReader(new FileReader("Files/t1arqs/"+arquivo))){ 				
 			while(in.ready()) { 			
 				codigo+=(in.readLine());				
-			}
-			return true;
-		}		
+			}				
+		}catch(FileNotFoundException a){
+				return false;
+		}
+			return true;			
 	}	
 	
 	public static void processaDados(){
